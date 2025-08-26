@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transforma tu Negocio - Soluciones Digitales Innovadoras</title>
+    <meta name="description" content="Descubre cómo nuestras soluciones digitales pueden revolucionar tu empresa. Aumenta ventas, optimiza procesos y conecta con tus clientes.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-logo">
+                <i class="fas fa-rocket"></i>
+                <span>TechSolutions</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#testimonios">Testimonios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    Transforma tu <span class="highlight">Negocio</span> con Tecnología de Vanguardia
+                </h1>
+                <p class="hero-subtitle">
+                    Descubre cómo nuestras soluciones digitales pueden revolucionar tu empresa, 
+                    aumentar tus ventas y optimizar todos tus procesos en tiempo récord.
+                </p>
+                <div class="hero-cta">
+                    <button class="btn btn-primary" onclick="scrollToForm()">
+                        <i class="fas fa-play"></i>
+                        Comenzar Ahora
+                    </button>
+                    <button class="btn btn-secondary" onclick="scrollToServices()">
+                        <i class="fas fa-info-circle"></i>
+                        Conocer Más
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <h3>500+</h3>
+                <p>Clientes Satisfechos</p>
+            </div>
+            <div class="stat">
+                <h3>98%</h3>
+                <p>Tasa de Éxito</p>
+            </div>
+            <div class="stat">
+                <h3>24/7</h3>
+                <p>Soporte Disponible</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Proposition Section -->
+    <section id="servicios" class="value-prop">
+        <div class="container">
+            <div class="section-header">
+                <h2>¿Por qué elegirnos?</h2>
+                <p>Nuestras soluciones están diseñadas para generar resultados medibles y transformadores</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Implementación Rápida</h3>
+                    <p>Tu proyecto funcionando en menos de 30 días con resultados inmediatos</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>ROI Garantizado</h3>
+                    <p>Incrementa tus ingresos en un 200% en los primeros 6 meses</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Experiencia del Cliente</h3>
+                    <p>Mejora la satisfacción de tus clientes con tecnología de última generación</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Seguridad Total</h3>
+                    <p>Protege tu información con los más altos estándares de seguridad</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section id="testimonios" class="social-proof">
+        <div class="container">
+            <div class="section-header">
+                <h2>Lo que dicen nuestros clientes</h2>
+                <p>Empresas que ya transformaron su negocio con nosotros</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Gracias a TechSolutions, aumentamos nuestras ventas en un 300% en solo 4 meses. El equipo es profesional y los resultados superaron nuestras expectativas."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>María González</h4>
+                            <p>CEO, Innovación Digital S.A.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"La implementación fue súper rápida y el soporte técnico es excepcional. Nuestros clientes están más satisfechos que nunca."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Carlos Rodríguez</h4>
+                            <p>Director de Tecnología, E-commerce Pro</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Invertir en TechSolutions fue la mejor decisión para nuestra empresa. El ROI fue inmediato y los procesos se optimizaron completamente."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Ana Martínez</h4>
+                            <p>Fundadora, StartupTech</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>¿Listo para transformar tu negocio?</h2>
+                <p>Únete a cientos de empresas que ya están creciendo con nosotros</p>
+                <button class="btn btn-primary btn-large" onclick="scrollToForm()">
+                    <i class="fas fa-arrow-right"></i>
+                    Solicitar Consulta Gratuita
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contacto" class="contact-form">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Comienza tu Transformación Digital</h2>
+                    <p>Completa este formulario y recibe una consulta gratuita personalizada</p>
+                </div>
+                <form id="contactForm" class="form">
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo *</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo electrónico *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="empresa">Nombre de la empresa</label>
+                        <input type="text" id="empresa" name="empresa">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono">
+                    </div>
+                    <div class="form-group">
+                        <label for="mensaje">¿En qué podemos ayudarte? *</label>
+                        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <i class="fas fa-paper-plane"></i>
+                        Enviar Consulta
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-rocket"></i>
+                        <span>TechSolutions</span>
+                    </div>
+                    <p>Transformando negocios con tecnología de vanguardia desde 2020</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="#">Consultoría Digital</a></li>
+                        <li><a href="#">Desarrollo Web</a></li>
+                        <li><a href="#">Marketing Digital</a></li>
+                        <li><a href="#">Automatización</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@techsolutions.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Ciudad de México, México</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TechSolutions. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
