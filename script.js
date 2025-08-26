@@ -490,6 +490,334 @@ class VisualEffects {
     }
 }
 
+// Sistema de animaciones de entrada
+class AnimationObserver {
+    constructor() {
+        this.observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        this.init();
+    }
+
+    init() {
+        this.createObserver();
+        this.observeElements();
+        this.initCounterAnimations();
+    }
+
+    createObserver() {
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, this.observerOptions);
+    }
+
+    observeElements() {
+        const animatedElements = document.querySelectorAll(
+            '.feature-card, .testimonial-card, .section-header, .form-container'
+        );
+        
+        animatedElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(50px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            this.observer.observe(el);
+        });
+    }
+
+    initCounterAnimations() {
+        const stats = document.querySelectorAll('.stat');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                    entry.target.classList.add('counted');
+                    const statNumber = entry.target.querySelector('h3');
+                    this.animateCounter(statNumber);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        stats.forEach(stat => statsObserver.observe(stat));
+    }
+
+    animateCounter(element) {
+        const target = parseInt(element.textContent.replace(/\D/g, ''));
+        const suffix = element.textContent.replace(/\d/g, '');
+        let current = 0;
+        const increment = target / 60; // 60 frames para la animación
+        
+        const updateCounter = () => {
+            if (current < target) {
+                current += increment;
+                element.textContent = Math.floor(current) + suffix;
+                requestAnimationFrame(updateCounter);
+            } else {
+                element.textContent = target + suffix;
+            }
+        };
+        
+        updateCounter();
+    }
+}
+
+// Sistema de formulario mejorado
+class ContactFormHandler {
+    constructor() {
+        this.form = document.getElementById('contactForm');
+        this.init();
+    }
+
+    init() {
+        if (this.form) {
+            this.handleSubmission();
+            this.handleInputAnimations();
+        }
+    }
+
+    handleSubmission() {
+        this.form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(this.form);
+            const data = {
+                nombre: formData.get('nombre'),
+                email: formData.get('email'),
+                empresa: formData.get('empresa'),
+                telefono: formData.get('telefono'),
+                mensaje: formData.get('mensaje')
+            };
+            
+            // Validación
+            if (!this.validateForm(data)) {
+                return;
+            }
+            
+            // Simular envío
+            this.submitForm(data);
+        });
+    }
+
+    validateForm(data) {
+        const errors = [];
+        
+        if (!data.nombre.trim()) {
+            errors.push('El nombre es requerido');
+        }
+        
+        if (!data.email.trim()) {
+            errors.push('El email es requerido');
+        } else if (!this.isValidEmail(data.email)) {
+            errors.push('El email no es válido');
+        }
+        
+        if (!data.mensaje.trim()) {
+            errors.push('El mensaje es requerido');
+        }
+        
+        if (errors.length > 0) {
+            this.showNotification(errors.join('. '), 'error');
+            return false;
+        }
+        
+        return true;
+    }
+
+    isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    async submitForm(data) {
+        const submitBtn = this.form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        // Estado de carga
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        submitBtn.disabled = true;
+        
+        try {
+            // Simular delay de envío
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            this.showNotification('¡Consulta enviada exitosamente! Te contactaremos pronto.', 'success');
+            this.form.reset();
+            
+            // Efecto de confetti
+            this.showConfetti();
+            
+        } catch (error) {
+            this.showNotification('Error al enviar la consulta. Inténtalo nuevamente.', 'error');
+        } finally {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    }
+
+    handleInputAnimations() {
+        const inputs = this.form.querySelectorAll('input, textarea');
+        
+        inputs.forEach(input => {
+            // Efecto de focus mejorado
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('focused');
+            });
+            
+            input.addEventListener('blur', () => {
+                if (!input.value) {
+                    input.parentElement.classList.remove('focused');
+                }
+            });
+            
+            // Validación en tiempo real
+            input.addEventListener('input', () => {
+                this.validateInput(input);
+            });
+        });
+    }
+
+    validateInput(input) {
+        const value = input.value.trim();
+        const inputGroup = input.parentElement;
+        
+        // Remover estados anteriores
+        inputGroup.classList.remove('error', 'success');
+        
+        if (input.hasAttribute('required') && !value) {
+            inputGroup.classList.add('error');
+        } else if (input.type === 'email' && value && !this.isValidEmail(value)) {
+            inputGroup.classList.add('error');
+        } else if (value) {
+            inputGroup.classList.add('success');
+        }
+    }
+
+    showConfetti() {
+        const colors = ['#667eea', '#764ba2', '#fbbf24', '#f59e0b', '#10b981'];
+        const confettiCount = 50;
+        
+        for (let i = 0; i < confettiCount; i++) {
+            setTimeout(() => {
+                this.createConfettiPiece(colors[Math.floor(Math.random() * colors.length)]);
+            }, i * 10);
+        }
+    }
+
+    createConfettiPiece(color) {
+        const confetti = document.createElement('div');
+        confetti.style.cssText = `
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: ${color};
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            left: ${Math.random() * 100}vw;
+            top: -10px;
+            animation: confettiFall 3s ease-out forwards;
+        `;
+        
+        document.body.appendChild(confetti);
+        
+        setTimeout(() => {
+            confetti.remove();
+        }, 3000);
+    }
+
+    showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        
+        const icons = {
+            success: 'fa-check-circle',
+            error: 'fa-exclamation-circle',
+            warning: 'fa-exclamation-triangle',
+            info: 'fa-info-circle'
+        };
+        
+        const colors = {
+            success: '#10b981',
+            error: '#ef4444',
+            warning: '#f59e0b',
+            info: '#3b82f6'
+        };
+        
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas ${icons[type]}"></i>
+                <span>${message}</span>
+            </div>
+            <button class="notification-close">&times;</button>
+        `;
+        
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${colors[type]};
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+            max-width: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            backdrop-filter: blur(10px);
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        const closeBtn = notification.querySelector('.notification-close');
+        closeBtn.addEventListener('click', () => {
+            this.hideNotification(notification);
+        });
+        
+        setTimeout(() => {
+            this.hideNotification(notification);
+        }, 5000);
+    }
+
+    hideNotification(notification) {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 400);
+    }
+}
+
+// Función para manejar las preguntas frecuentes
+function toggleFAQ(element) {
+    const faqItem = element.closest('.faq-item');
+    const isActive = faqItem.classList.contains('active');
+    
+    // Cerrar todas las preguntas
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    // Abrir la pregunta seleccionada si no estaba activa
+    if (!isActive) {
+        faqItem.classList.add('active');
+    }
+}
+
 // Inicialización cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
     // Inicializar todos los sistemas
@@ -545,6 +873,7 @@ document.addEventListener('DOMContentLoaded', () => {
 window.TechSolutions = {
     scrollToForm,
     scrollToServices,
+    toggleFAQ,
     
     // API para personalización externa
     addParticle: (color, size = 'medium') => {
@@ -563,19 +892,7 @@ window.TechSolutions = {
         const formHandler = new ContactFormHandler();
         formHandler.showNotification(message, type);
     }
-};Resize() 
-        window.addEventListener('resize', () => {
-            // Reajustar partículas en resize
-            this.particles.forEach(particle => {
-                if (parseFloat(particle.style.left) > 95) {
-                    particle.style.left = '95%';
-                }
-                if (parseFloat(particle.style.top) > 95) {
-                    particle.style.top = '95%';
-                }
-            });
-        });
-    
+};
 
 // Funciones de navegación suave mejoradas
 function scrollToForm() {
@@ -714,96 +1031,4 @@ class ModernNavigation {
             });
         });
     }
-}
-
-// Sistema de animaciones de entrada
-class AnimationObserver {
-    constructor() {
-        this.observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        this.init();
-    }
-
-    init() {
-        this.createObserver();
-        this.observeElements();
-        this.initCounterAnimations();
-    }
-
-    createObserver() {
-        this.observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    entry.target.classList.add('animated');
-                }
-            });
-        }, this.observerOptions);
-    }
-
-    observeElements() {
-        const animatedElements = document.querySelectorAll(
-            '.feature-card, .testimonial-card, .section-header, .form-container'
-        );
-        
-        animatedElements.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(50px)';
-            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            this.observer.observe(el);
-        });
-    }
-
-    initCounterAnimations() {
-        const stats = document.querySelectorAll('.stat');
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
-                    entry.target.classList.add('counted');
-                    const statNumber = entry.target.querySelector('h3');
-                    this.animateCounter(statNumber);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        stats.forEach(stat => statsObserver.observe(stat));
-    }
-
-    animateCounter(element) {
-        const target = parseInt(element.textContent.replace(/\D/g, ''));
-        const suffix = element.textContent.replace(/\d/g, '');
-        let current = 0;
-        const increment = target / 60; // 60 frames para la animación
-        
-        const updateCounter = () => {
-            if (current < target) {
-                current += increment;
-                element.textContent = Math.floor(current) + suffix;
-                requestAnimationFrame(updateCounter);
-            } else {
-                element.textContent = target + suffix;
-            }
-        };
-        
-        updateCounter();
-    }
-}
-
-// Sistema de formulario mejorado
-class ContactFormHandler {
-    constructor() {
-        this.form = document.getElementById('contactForm');
-        this.init();
-    }
-
-    init() {
-        if (this.form) {
-            this.handleSubmission();
-            this.handleInputAnimations();
-        }
-    }
-
-    handle 
+} 
