@@ -1039,6 +1039,601 @@ body {
     color: rgba(255, 255, 255, 0.6);
 }
 
+/* How We Work Section mejorado */
+.how-we-work {
+    padding: 100px 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    position: relative;
+    overflow: hidden;
+}
+
+.how-we-work::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(102, 126, 234, 0.1),
+        transparent,
+        rgba(251, 191, 36, 0.1),
+        transparent
+    );
+    animation: rotate 20s linear infinite;
+    z-index: -1;
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2.5rem;
+    margin-top: 4rem;
+}
+
+.step {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    padding: 2.5rem;
+    border-radius: 25px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+}
+
+.step::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(102, 126, 234, 0.1),
+        transparent,
+        rgba(251, 191, 36, 0.1),
+        transparent
+    );
+    transition: transform 0.6s ease;
+    z-index: -1;
+}
+
+.step:hover::before {
+    transform: rotate(180deg);
+}
+
+.step:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: white;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    transition: all 0.4s ease;
+}
+
+.step:hover .step-number {
+    transform: scale(1.1) rotateY(15deg);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+}
+
+.step-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3);
+    transition: all 0.4s ease;
+}
+
+.step:hover .step-icon {
+    transform: scale(1.1) rotateY(15deg);
+    box-shadow: 0 15px 40px rgba(251, 191, 36, 0.5);
+}
+
+.step-icon i {
+    font-size: 2rem;
+    color: white;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+.step h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.step p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* Portfolio Section mejorado */
+.portfolio {
+    padding: 100px 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(102, 126, 234, 0.1),
+        transparent,
+        rgba(251, 191, 36, 0.1),
+        transparent
+    );
+    animation: rotate 20s linear infinite;
+    z-index: -1;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin-top: 4rem;
+}
+
+.portfolio-item {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+}
+
+.portfolio-item::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(102, 126, 234, 0.1),
+        transparent,
+        rgba(251, 191, 36, 0.1),
+        transparent
+    );
+    transition: transform 0.6s ease;
+    z-index: -1;
+}
+
+.portfolio-item:hover::before {
+    transform: rotate(180deg);
+}
+
+.portfolio-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+.portfolio-image {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio-image::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    animation: rotate 10s linear infinite;
+}
+
+.portfolio-image i {
+    font-size: 4rem;
+    color: white;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+    z-index: 1;
+}
+
+.portfolio-content {
+    padding: 2rem;
+}
+
+.portfolio-content h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.portfolio-content p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.portfolio-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.portfolio-tech span {
+    background: rgba(102, 126, 234, 0.2);
+    color: #667eea;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid rgba(102, 126, 234, 0.3);
+}
+
+.portfolio-results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.result {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(251, 191, 36, 0.1);
+    border-radius: 15px;
+    border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+.result strong {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #fbbf24;
+    margin-bottom: 0.5rem;
+}
+
+.result span {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Pricing Section mejorado */
+.pricing {
+    padding: 100px 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    position: relative;
+    overflow: hidden;
+}
+
+.pricing::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(102, 126, 234, 0.1),
+        transparent,
+        rgba(251, 191, 36, 0.1),
+        transparent
+    );
+    animation: rotate 20s linear infinite;
+    z-index: -1;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    margin-top: 4rem;
+}
+
+.pricing-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2.5rem;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+}
+
+.pricing-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(102, 126, 234, 0.1),
+        transparent,
+        rgba(251, 191, 36, 0.1),
+        transparent
+    );
+    transition: transform 0.6s ease;
+    z-index: -1;
+}
+
+.pricing-card:hover::before {
+    transform: rotate(180deg);
+}
+
+.pricing-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+.pricing-card.featured {
+    border-color: rgba(251, 191, 36, 0.5);
+    box-shadow: 0 15px 40px rgba(251, 191, 36, 0.2);
+    transform: scale(1.05);
+}
+
+.pricing-card.featured:hover {
+    transform: scale(1.05) translateY(-8px);
+}
+
+.pricing-badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: #1f2937;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 5px 15px rgba(251, 191, 36, 0.3);
+}
+
+.pricing-header {
+    margin-bottom: 2rem;
+}
+
+.pricing-header h3 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.pricing-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    transition: all 0.4s ease;
+}
+
+.pricing-card:hover .pricing-icon {
+    transform: scale(1.1) rotateY(15deg);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+}
+
+.pricing-icon i {
+    font-size: 2rem;
+    color: white;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+.pricing-features {
+    margin-bottom: 2rem;
+}
+
+.pricing-features ul {
+    list-style: none;
+    text-align: left;
+}
+
+.pricing-features li {
+    padding: 0.8rem 0;
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pricing-features li:last-child {
+    border-bottom: none;
+}
+
+.pricing-features i {
+    color: #10b981;
+    font-size: 1.1rem;
+    min-width: 20px;
+}
+
+.pricing-cta {
+    margin-top: 2rem;
+}
+
+/* FAQ Section mejorado */
+.faq {
+    padding: 100px 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    position: relative;
+    overflow: hidden;
+}
+
+.faq::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(102, 126, 234, 0.1),
+        transparent,
+        rgba(251, 191, 36, 0.1),
+        transparent
+    );
+    animation: rotate 20s linear infinite;
+    z-index: -1;
+}
+
+.faq-grid {
+    max-width: 800px;
+    margin: 4rem auto 0;
+}
+
+.faq-item {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+}
+
+.faq-item::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(102, 126, 234, 0.1),
+        transparent,
+        rgba(251, 191, 36, 0.1),
+        transparent
+    );
+    transition: transform 0.6s ease;
+    z-index: -1;
+}
+
+.faq-item:hover::before {
+    transform: rotate(180deg);
+}
+
+.faq-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+.faq-question {
+    padding: 2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.faq-question h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+}
+
+.faq-question i {
+    color: #667eea;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.faq-item.active .faq-answer {
+    max-height: 200px;
+}
+
+.faq-answer p {
+    padding: 0 2rem 2rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    margin: 0;
+}
+
 /* Responsive Design mejorado */
 @media (max-width: 768px) {
     .nav-menu {
