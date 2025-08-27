@@ -1,32 +1,41 @@
-// Configuración de EmailJS
-// IMPORTANTE: Reemplaza las claves de ejemplo con las tuyas reales
-
-const EMAILJS_CONFIG = {
-    // 🔑 Tu Public Key de EmailJS
-    // Obtener en: Account → API Keys
-    PUBLIC_KEY: "X4fgh21iQZ6wUU6DI", // Ejemplo: "user_abc123def456"
+// Configuración del formulario de contacto
+const CONFIG = {
+    // Correo de destino donde recibirás las consultas
+    EMAIL_DESTINO: 'devalliance25@gmail.com',
     
-    // 📧 ID del servicio de Gmail
-    // Obtener en: Email Services → Gmail
-    SERVICE_ID: "service_lqd3ko9", // Ejemplo: "service_xyz789"
+    // Configuración del servidor
+    SERVER_PORT: process.env.PORT || 3000,
     
-    // 📝 ID de la plantilla de email
-    // Obtener en: Email Templates → Tu plantilla
-    TEMPLATE_ID: "template_9qu5m7k", // Ejemplo: "template_abc123"
+    // Configuración del formulario
+    FORM_FIELDS: {
+        nombre: { required: true, label: 'Nombre completo' },
+        email: { required: true, label: 'Correo electrónico' },
+        empresa: { required: false, label: 'Nombre de la empresa' },
+        telefono: { required: false, label: 'Teléfono' },
+        mensaje: { required: true, label: '¿En qué podemos ayudarte?' }
+    },
     
-    // 📮 Email donde recibirás las consultas
-    TO_EMAIL: "devalliance25@gmail.com"
+    // Mensajes del sistema
+    MESSAGES: {
+        SUCCESS: '¡Consulta enviada exitosamente! Te contactaremos pronto.',
+        ERROR: 'Error al enviar la consulta. Inténtalo nuevamente.',
+        VALIDATION: {
+            REQUIRED: 'Este campo es requerido',
+            EMAIL_INVALID: 'El email no es válido',
+            MIN_LENGTH: 'Este campo debe tener al menos {min} caracteres'
+        }
+    },
+    
+    // Configuración de notificaciones
+    NOTIFICATIONS: {
+        AUTO_HIDE_DELAY: 5000, // 5 segundos
+        POSITION: 'top-right'
+    }
 };
 
-// Exportar configuración
+// Exportar para uso en otros archivos
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = EMAILJS_CONFIG;
+    module.exports = CONFIG;
+} else {
+    window.CONFIG = CONFIG;
 }
-
-// ⚠️ INSTRUCCIONES IMPORTANTES:
-// 1. Ve a emailjs.com y crea una cuenta
-// 2. Configura un servicio de Gmail
-// 3. Crea una plantilla de email
-// 4. Obtén tu Public Key
-// 5. Reemplaza las claves de ejemplo con las tuyas reales
-// 6. ¡Tu formulario funcionará automáticamente!

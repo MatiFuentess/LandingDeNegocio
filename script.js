@@ -89,225 +89,13 @@ class ParticleSystem {
         requestAnimationFrame(() => this.animate());
     }
 
-    handleSubmission() {
-        this.form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const formData = new FormData(this.form);
-            const data = {
-                nombre: formData.get('nombre'),
-                email: formData.get('email'),
-                empresa: formData.get('empresa'),
-                telefono: formData.get('telefono'),
-                mensaje: formData.get('mensaje')
-            };
-            
-            // Validación
-            if (!this.validateForm(data)) {
-                return;
-            }
-            
-            // Simular envío
-            this.submitForm(data);
+    handleResize() {
+        window.addEventListener('resize', () => {
+            // Recrear partículas en nuevas posiciones
+            this.particles.forEach(particle => particle.remove());
+            this.particles = [];
+            this.createParticles();
         });
-    }
-
-    validateForm(data) {
-        const errors = [];
-        
-        if (!data.nombre.trim()) {
-            errors.push('El nombre es requerido');
-        }
-        
-        if (!data.email.trim()) {
-            errors.push('El email es requerido');
-        } else if (!this.isValidEmail(data.email)) {
-            errors.push('El email no es válido');
-        }
-        
-        if (!data.mensaje.trim()) {
-            errors.push('El mensaje es requerido');
-        }
-        
-        if (errors.length > 0) {
-            this.showNotification(errors.join('. '), 'error');
-            return false;
-        }
-        
-        return true;
-    }
-
-    isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-
-    async submitForm(data) {
-        const submitBtn = this.form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        
-        // Estado de carga
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-        submitBtn.disabled = true;
-        
-        try {
-            // Simular delay de envío
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            
-            this.showNotification('¡Consulta enviada exitosamente! Te contactaremos pronto.', 'success');
-            this.form.reset();
-            
-            // Efecto de confetti
-            this.showConfetti();
-            
-        } catch (error) {
-            this.showNotification('Error al enviar la consulta. Inténtalo nuevamente.', 'error');
-        } finally {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }
-    }
-
-    handleInputAnimations() {
-        const inputs = this.form.querySelectorAll('input, textarea');
-        
-        inputs.forEach(input => {
-            // Efecto de focus mejorado
-            input.addEventListener('focus', () => {
-                input.parentElement.classList.add('focused');
-            });
-            
-            input.addEventListener('blur', () => {
-                if (!input.value) {
-                    input.parentElement.classList.remove('focused');
-                }
-            });
-            
-            // Validación en tiempo real
-            input.addEventListener('input', () => {
-                this.validateInput(input);
-            });
-        });
-    }
-
-    validateInput(input) {
-        const value = input.value.trim();
-        const inputGroup = input.parentElement;
-        
-        // Remover estados anteriores
-        inputGroup.classList.remove('error', 'success');
-        
-        if (input.hasAttribute('required') && !value) {
-            inputGroup.classList.add('error');
-        } else if (input.type === 'email' && value && !this.isValidEmail(value)) {
-            inputGroup.classList.add('error');
-        } else if (value) {
-            inputGroup.classList.add('success');
-        }
-    }
-
-    showConfetti() {
-        const colors = ['#667eea', '#764ba2', '#fbbf24', '#f59e0b', '#10b981'];
-        const confettiCount = 50;
-        
-        for (let i = 0; i < confettiCount; i++) {
-            setTimeout(() => {
-                this.createConfettiPiece(colors[Math.floor(Math.random() * colors.length)]);
-            }, i * 10);
-        }
-    }
-
-    createConfettiPiece(color) {
-        const confetti = document.createElement('div');
-        confetti.style.cssText = `
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            background: ${color};
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            left: ${Math.random() * 100}vw;
-            top: -10px;
-            animation: confettiFall 3s ease-out forwards;
-        `;
-        
-        document.body.appendChild(confetti);
-        
-        setTimeout(() => {
-            confetti.remove();
-        }, 3000);
-    }
-
-    showNotification(message, type = 'info') {
-        const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
-        
-        const icons = {
-            success: 'fa-check-circle',
-            error: 'fa-exclamation-circle',
-            warning: 'fa-exclamation-triangle',
-            info: 'fa-info-circle'
-        };
-        
-        const colors = {
-            success: '#10b981',
-            error: '#ef4444',
-            warning: '#f59e0b',
-            info: '#3b82f6'
-        };
-        
-        notification.innerHTML = `
-            <div class="notification-content">
-                <i class="fas ${icons[type]}"></i>
-                <span>${message}</span>
-            </div>
-            <button class="notification-close">&times;</button>
-        `;
-        
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: ${colors[type]};
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            z-index: 10000;
-            max-width: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            backdrop-filter: blur(10px);
-        `;
-        
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.style.transform = 'translateX(0)';
-        }, 100);
-        
-        const closeBtn = notification.querySelector('.notification-close');
-        closeBtn.addEventListener('click', () => {
-            this.hideNotification(notification);
-        });
-        
-        setTimeout(() => {
-            this.hideNotification(notification);
-        }, 5000);
-    }
-
-    hideNotification(notification) {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
-            }
-        }, 400);
     }
 }
 
@@ -642,17 +430,36 @@ class ContactFormHandler {
         submitBtn.disabled = true;
         
         try {
-            // Simular delay de envío
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            // Enviar datos al servidor
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
             
-            this.showNotification('¡Consulta enviada exitosamente! Te contactaremos pronto.', 'success');
-            this.form.reset();
+            const result = await response.json();
             
-            // Efecto de confetti
-            this.showConfetti();
+            if (result.success) {
+                this.showNotification(result.message, 'success');
+                this.form.reset();
+                
+                // Efecto de confetti
+                this.showConfetti();
+                
+                // Log para debugging
+                console.log('✅ Formulario enviado exitosamente:', data);
+            } else {
+                throw new Error(result.message || 'Error en el servidor');
+            }
             
         } catch (error) {
-            this.showNotification('Error al enviar la consulta. Inténtalo nuevamente.', 'error');
+            console.error('❌ Error al enviar formulario:', error);
+            this.showNotification(
+                error.message || 'Error al enviar la consulta. Inténtalo nuevamente.', 
+                'error'
+            );
         } finally {
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
@@ -818,97 +625,25 @@ function toggleFAQ(element) {
     }
 }
 
-// Inicialización cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-    // Inicializar todos los sistemas
-    new ParticleSystem();
-    new ModernNavigation();
-    new AnimationObserver();
-    new ContactFormHandler();
-    new VisualEffects();
-    
-    // Preloader opcional
-    const preloader = document.createElement('div');
-    preloader.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, #0f0f23, #1a1a2e);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 10000;
-        transition: opacity 0.5s ease;
-    `;
-    preloader.innerHTML = `
-        <div style="text-align: center; color: white;">
-            <i class="fas fa-rocket" style="font-size: 3rem; color: #667eea; animation: bounce 1s infinite;"></i>
-            <p style="margin-top: 1rem; font-size: 1.2rem;">Cargando experiencia...</p>
-        </div>
-        <style>
-            @keyframes bounce {
-                0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-                40% { transform: translateY(-20px); }
-                60% { transform: translateY(-10px); }
-            }
-        </style>
-    `;
-    
-    document.body.appendChild(preloader);
-    
-    // Ocultar preloader cuando todo esté listo
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            preloader.style.opacity = '0';
-            setTimeout(() => {
-                preloader.remove();
-            }, 500);
-        }, 1000);
-    });
-});
-
-// Funciones utilitarias exportadas
-window.TechSolutions = {
-    scrollToForm,
-    scrollToServices,
-    toggleFAQ,
-    
-    // API para personalización externa
-    addParticle: (color, size = 'medium') => {
-        const container = document.getElementById('particles');
-        if (container) {
-            const particle = document.createElement('div');
-            particle.className = `particle ${size}`;
-            particle.style.backgroundColor = color;
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            container.appendChild(particle);
-        }
-    },
-    
-    showNotification: (message, type = 'info') => {
-        const formHandler = new ContactFormHandler();
-        formHandler.showNotification(message, type);
-    }
-};
-
-// Funciones de navegación suave mejoradas
+// Funciones de navegación suave mejoradas (SIN desplazamiento automático)
 function scrollToForm() {
     const element = document.getElementById('contacto');
-    element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-    });
+    if (element) {
+        element.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
 }
 
 function scrollToServices() {
     const element = document.getElementById('servicios');
-    element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-    });
+    if (element) {
+        element.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
 }
 
 // Sistema de navegación moderna
@@ -1031,4 +766,80 @@ class ModernNavigation {
             });
         });
     }
-} 
+}
+
+// Inicialización cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    // Inicializar todos los sistemas
+    new ParticleSystem();
+    new ModernNavigation();
+    new AnimationObserver();
+    new ContactFormHandler();
+    new VisualEffects();
+    
+    // Preloader opcional
+    const preloader = document.createElement('div');
+    preloader.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #0f0f23, #1a1a2e);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        transition: opacity 0.5s ease;
+    `;
+    preloader.innerHTML = `
+        <div style="text-align: center; color: white;">
+            <i class="fas fa-rocket" style="font-size: 3rem; color: #667eea; animation: bounce 1s infinite;"></i>
+            <p style="margin-top: 1rem; font-size: 1.2rem;">Cargando experiencia...</p>
+        </div>
+        <style>
+            @keyframes bounce {
+                0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+                40% { transform: translateY(-20px); }
+                60% { transform: translateY(-10px); }
+            }
+        </style>
+    `;
+    
+    document.body.appendChild(preloader);
+    
+    // Ocultar preloader cuando todo esté listo
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.remove();
+            }, 500);
+        }, 1000);
+    });
+});
+
+// Funciones utilitarias exportadas
+window.TechSolutions = {
+    scrollToForm,
+    scrollToServices,
+    toggleFAQ,
+    
+    // API para personalización externa
+    addParticle: (color, size = 'medium') => {
+        const container = document.getElementById('particles');
+        if (container) {
+            const particle = document.createElement('div');
+            particle.className = `particle ${size}`;
+            particle.style.backgroundColor = color;
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            container.appendChild(particle);
+        }
+    },
+    
+    showNotification: (message, type = 'info') => {
+        const formHandler = new ContactFormHandler();
+        formHandler.showNotification(message, type);
+    }
+}; 
