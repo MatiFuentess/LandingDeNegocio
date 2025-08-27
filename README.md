@@ -1,168 +1,149 @@
-# 🚀 Landing Page de Negocio - TechSolutions
+# 🚀 Landing de Negocio - DevAlliance
 
-Una landing page moderna, atractiva y completamente funcional diseñada para convertir visitantes en clientes potenciales.
+Landing page profesional con formulario de contacto funcional que envía correos electrónicos en tiempo real.
 
-## ✨ Características Principales
+## ✨ Características
 
-### 🎯 **Título y Subtítulo Atractivos**
-- Mensaje principal impactante: "Transforma tu Negocio con Tecnología de Vanguardia"
-- Subtítulo persuasivo que explica los beneficios clave
-- Diseño visual llamativo con gradientes y efectos
+- **Formulario funcional**: Envía información directamente a tu correo
+- **Diseño responsive**: Se adapta a todos los dispositivos
+- **Animaciones modernas**: Efectos visuales atractivos
+- **Validación en tiempo real**: Verificación de datos antes del envío
+- **Notificaciones**: Feedback visual para el usuario
+- **Backend Node.js**: Servidor robusto para manejar formularios
 
-### 💎 **Propuesta de Valor Clara**
-- 4 características principales destacadas con iconos
-- Beneficios específicos y medibles
-- Diseño de tarjetas interactivas con efectos hover
+## 🛠️ Instalación y Configuración
 
-### 🎯 **Llamadas a la Acción (CTA)**
-- Botones primarios y secundarios estratégicamente ubicados
-- Diseño atractivo con gradientes y sombras
-- Múltiples puntos de conversión en la página
+### 1. Instalar dependencias
 
-### 🖼️ **Contenido Visual Atractivo**
-- Gradientes modernos y atractivos
-- Iconos de Font Awesome para mejor comprensión
-- Efectos visuales y animaciones suaves
-- Diseño responsivo para todos los dispositivos
-
-### 📝 **Formulario Simple y Efectivo**
-- Solo 5 campos (2 obligatorios)
-- Validación en tiempo real
-- Sistema de notificaciones elegante
-- Diseño limpio y fácil de completar
-
-### 👥 **Prueba Social**
-- 3 testimonios de clientes reales
-- Información de autor y empresa
-- Diseño de tarjetas con bordes destacados
-- Estadísticas impresionantes (500+ clientes, 98% éxito)
-
-### 🎨 **Diseño Limpio y Minimalista**
-- Paleta de colores profesional
-- Tipografía moderna (Inter)
-- Espaciado consistente y equilibrado
-- Eliminación de distracciones innecesarias
-
-## 🛠️ Tecnologías Utilizadas
-
-- **HTML5** - Estructura semántica y accesible
-- **CSS3** - Estilos modernos con Flexbox y Grid
-- **JavaScript ES6+** - Funcionalidad interactiva
-- **Font Awesome** - Iconos profesionales
-- **Google Fonts** - Tipografía Inter
-
-## 📱 Características Técnicas
-
-### Responsive Design
-- Mobile-first approach
-- Breakpoints optimizados para móvil, tablet y desktop
-- Navegación adaptativa
-
-### Performance
-- CSS optimizado
-- JavaScript modular
-- Carga rápida de recursos
-
-### Accesibilidad
-- Navegación por teclado
-- Contraste adecuado
-- Estructura semántica
-
-## 🚀 Cómo Usar
-
-1. **Descarga los archivos** en tu servidor web
-2. **Abre `index.html`** en tu navegador
-3. **Personaliza el contenido** según tu negocio:
-   - Cambia textos y mensajes
-   - Actualiza colores en `styles.css`
-   - Modifica funcionalidades en `script.js`
-
-## 📁 Estructura de Archivos
-
+```bash
+npm install
 ```
-LandingDeNegocio/
-├── index.html          # Página principal
-├── styles.css          # Estilos y diseño
-├── script.js           # Funcionalidad JavaScript
-└── README.md           # Este archivo
+
+### 2. Configurar correo Gmail
+
+Para que el formulario funcione, necesitas configurar Gmail:
+
+1. **Activar verificación en dos pasos** en tu cuenta de Google
+2. **Generar contraseña de aplicación**:
+   - Ve a [Google Account](https://myaccount.google.com/)
+   - Seguridad → Verificación en dos pasos
+   - Contraseñas de aplicación → Generar nueva contraseña
+   - Selecciona "Correo" y copia la contraseña generada
+
+### 3. Crear archivo .env
+
+Crea un archivo `.env` en la raíz del proyecto:
+
+```env
+EMAIL_USER=devalliance25@gmail.com
+EMAIL_PASS=tu_contraseña_de_aplicacion_generada
+PORT=3000
 ```
+
+### 4. Iniciar servidor
+
+```bash
+# Modo desarrollo (con recarga automática)
+npm run dev
+
+# Modo producción
+npm start
+```
+
+El servidor estará disponible en: `http://localhost:3000`
+
+## 📧 Cómo funciona el formulario
+
+1. **Usuario completa el formulario** en la landing page
+2. **Datos se validan** en el frontend (JavaScript)
+3. **Información se envía** al servidor Node.js
+4. **Servidor procesa** y envía correo usando Nodemailer
+5. **Correo llega** a `devalliance25@gmail.com`
+6. **Usuario recibe confirmación** en la página
+
+## 📋 Campos del formulario
+
+- **Nombre completo** (requerido)
+- **Correo electrónico** (requerido)
+- **Nombre de la empresa** (opcional)
+- **Teléfono** (opcional)
+- **Mensaje** (requerido)
 
 ## 🎨 Personalización
 
-### Colores Principales
-- **Primario**: #2563eb (Azul)
-- **Secundario**: #fbbf24 (Amarillo)
-- **Gradientes**: #667eea → #764ba2
+### Cambiar correo de destino
 
-### Tipografía
-- **Principal**: Inter (Google Fonts)
-- **Tamaños**: 1rem, 1.125rem, 1.25rem, 2rem, 2.5rem, 3.5rem
+En `server.js`, línea 85:
 
-### Espaciado
-- **Secciones**: 80px padding
-- **Elementos**: 1rem, 1.5rem, 2rem, 4rem
+```javascript
+to: 'tu-nuevo-correo@gmail.com', // Cambia aquí tu correo
+```
 
-## 🔧 Funcionalidades JavaScript
+### Modificar diseño del correo
 
-- Navegación suave entre secciones
-- Formulario con validación
-- Sistema de notificaciones
-- Animaciones al hacer scroll
-- Contadores animados
-- Efectos parallax suaves
-- Navegación móvil responsive
+El HTML del correo está en `server.js` en la función `mailOptions.html`. Puedes personalizar:
 
-## 📊 Métricas de Conversión
+- Colores y estilos
+- Información mostrada
+- Logo y branding
+- Formato de fecha
 
-La landing page está diseñada para maximizar conversiones:
+### Cambiar puerto del servidor
 
-- **Hero section** con CTA prominente
-- **Múltiples puntos de conversión** a lo largo de la página
-- **Formulario simplificado** para reducir fricción
-- **Prueba social** para generar confianza
-- **Diseño limpio** que guía hacia la acción
+En el archivo `.env`:
 
-## 🌟 Características Destacadas
+```env
+PORT=8080  # O cualquier puerto que prefieras
+```
 
-- **Header fijo** con navegación clara
-- **Hero section** impactante con estadísticas
-- **Sección de características** con iconos
-- **Testimonios** de clientes satisfechos
-- **CTA intermedio** para reconversión
-- **Formulario de contacto** optimizado
-- **Footer** completo con información de contacto
+## 🔧 Solución de problemas
 
-## 📱 Compatibilidad
+### Error: "Invalid login"
 
-- ✅ Chrome (última versión)
-- ✅ Firefox (última versión)
-- ✅ Safari (última versión)
-- ✅ Edge (última versión)
-- ✅ Dispositivos móviles
-- ✅ Tablets
+- Verifica que la verificación en dos pasos esté activada
+- Asegúrate de usar la contraseña de aplicación, no tu contraseña normal
+- Revisa que el correo en `EMAIL_USER` sea correcto
 
-## 🚀 Optimización SEO
+### Error: "Connection timeout"
 
-- Meta tags optimizados
-- Estructura HTML semántica
-- Títulos y subtítulos jerárquicos
-- Descripción meta atractiva
-- URLs amigables para navegación
+- Verifica tu conexión a internet
+- Asegúrate de que el puerto 3000 no esté bloqueado
+- Revisa que no haya firewall bloqueando la conexión
 
-## 💡 Consejos de Uso
+### El formulario no envía
 
-1. **Personaliza el contenido** para tu industria específica
-2. **Ajusta los colores** a tu marca
-3. **Actualiza las estadísticas** con datos reales
-4. **Modifica los testimonios** con casos reales
-5. **Integra el formulario** con tu sistema de CRM
-6. **Añade Google Analytics** para tracking
-7. **Optimiza las imágenes** si las agregas
+- Abre la consola del navegador (F12) para ver errores
+- Verifica que el servidor esté corriendo
+- Confirma que la URL `/api/contact` esté accesible
+
+## 📱 Uso en producción
+
+Para usar en producción:
+
+1. **Hosting**: Sube a servicios como Heroku, Vercel, o tu servidor
+2. **Variables de entorno**: Configura las variables en tu hosting
+3. **Dominio**: Apunta tu dominio al servidor
+4. **SSL**: Asegúrate de tener HTTPS para seguridad
+
+## 🚀 Tecnologías utilizadas
+
+- **Frontend**: HTML5, CSS3, JavaScript ES6+
+- **Backend**: Node.js, Express.js
+- **Correo**: Nodemailer
+- **Estilos**: CSS personalizado con animaciones
+- **Iconos**: Font Awesome
 
 ## 📞 Soporte
 
-Esta landing page está diseñada para ser completamente funcional desde el primer momento. Si necesitas ayuda con personalizaciones específicas o tienes preguntas sobre la implementación, revisa el código comentado en cada archivo.
+Si tienes problemas o preguntas:
+
+- **Email**: devalliance25@gmail.com
+- **WhatsApp**: +54 261-249-7770
+
+## 📄 Licencia
+
+MIT License - Libre para uso comercial y personal.
 
 ---
 
-**¡Listo para convertir visitantes en clientes! 🎯**
+**DevAlliance** - Transformando negocios con tecnología de vanguardia 🚀
