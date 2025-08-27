@@ -394,18 +394,29 @@ class ContactFormHandler {
     validateForm(data) {
         const errors = [];
         
-        if (!data.nombre.trim()) {
-            errors.push('El nombre es requerido');
+        // Validación estricta - TODOS los campos son obligatorios
+        if (!data.nombre || !data.nombre.trim()) {
+            errors.push('El nombre es obligatorio');
         }
         
-        if (!data.email.trim()) {
-            errors.push('El email es requerido');
+        if (!data.email || !data.email.trim()) {
+            errors.push('El email es obligatorio');
         } else if (!this.isValidEmail(data.email)) {
-            errors.push('El email no es válido');
+            errors.push('El formato del email no es válido');
         }
         
-        if (!data.mensaje.trim()) {
-            errors.push('El mensaje es requerido');
+        if (!data.empresa || !data.empresa.trim()) {
+            errors.push('El nombre de la empresa es obligatorio');
+        }
+        
+        if (!data.telefono || !data.telefono.trim()) {
+            errors.push('El teléfono es obligatorio');
+        }
+        
+        if (!data.mensaje || !data.mensaje.trim()) {
+            errors.push('El mensaje es obligatorio');
+        } else if (data.mensaje.trim().length < 10) {
+            errors.push('El mensaje debe tener al menos 10 caracteres');
         }
         
         if (errors.length > 0) {
@@ -495,12 +506,66 @@ class ContactFormHandler {
         // Remover estados anteriores
         inputGroup.classList.remove('error', 'success');
         
+        // Validación estricta para cada campo
         if (input.hasAttribute('required') && !value) {
             inputGroup.classList.add('error');
         } else if (input.type === 'email' && value && !this.isValidEmail(value)) {
             inputGroup.classList.add('error');
+        } else if (input.name === 'mensaje' && value && value.length < 10) {
+            inputGroup.classList.add('error');
         } else if (value) {
             inputGroup.classList.add('success');
+        }
+        
+        // Mostrar mensaje de error específico
+        this.showFieldError(input, value);
+    }
+    
+    showFieldError(input, value) {
+        const inputGroup = input.parentElement;
+        let errorMessage = '';
+        
+        if (input.hasAttribute('required') && !value) {
+            switch(input.name) {
+                case 'nombre':
+                    errorMessage = 'El nombre es obligatorio';
+                    break;
+                case 'email':
+                    errorMessage = 'El email es obligatorio';
+                    break;
+                case 'empresa':
+                    errorMessage = 'La empresa es obligatoria';
+                    break;
+                case 'telefono':
+                    errorMessage = 'El teléfono es obligatorio';
+                    break;
+                case 'mensaje':
+                    errorMessage = 'El mensaje es obligatorio';
+                    break;
+            }
+        } else if (input.type === 'email' && value && !this.isValidEmail(value)) {
+            errorMessage = 'Formato de email inválido';
+        } else if (input.name === 'mensaje' && value && value.length < 10) {
+            errorMessage = 'El mensaje debe tener al menos 10 caracteres';
+        }
+        
+        // Mostrar/ocultar mensaje de error
+        let errorElement = inputGroup.querySelector('.field-error');
+        if (errorMessage && !errorElement) {
+            errorElement = document.createElement('div');
+            errorElement.className = 'field-error';
+            errorElement.style.cssText = `
+                color: #ef4444;
+                font-size: 0.875rem;
+                margin-top: 0.25rem;
+                display: flex;
+                align-items: center;
+                gap: 0.25rem;
+            `;
+            errorElement.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${errorMessage}`;
+            inputGroup.appendChild(errorElement);
+        } else if (!errorMessage && errorElement) {
+            errorElement.remove();
         }
     }
 
