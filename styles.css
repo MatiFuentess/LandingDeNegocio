@@ -1433,7 +1433,7 @@ body {
 
 .pricing-badge {
     position: absolute;
-    top: -15px;
+    top: 5px;
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
