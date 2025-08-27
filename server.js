@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.static('.')); // Servir archivos estáticos desde el directorio actual
 
 // Configuración del transportador de correo
-const transporter = nodemailer.createTransporter({
+const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.EMAIL_USER || 'devalliance25@gmail.com',
@@ -26,11 +26,56 @@ app.post('/api/contact', async (req, res) => {
     try {
         const { nombre, email, empresa, telefono, mensaje } = req.body;
 
-        // Validación básica
-        if (!nombre || !email || !mensaje) {
+        // Validación estricta - TODOS los campos son obligatorios
+        if (!nombre || !nombre.trim()) {
             return res.status(400).json({ 
                 success: false, 
-                message: 'Nombre, email y mensaje son requeridos' 
+                message: 'El nombre es obligatorio' 
+            });
+        }
+        
+        if (!email || !email.trim()) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'El email es obligatorio' 
+            });
+        }
+        
+        if (!empresa || !empresa.trim()) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'El nombre de la empresa es obligatorio' 
+            });
+        }
+        
+        if (!telefono || !telefono.trim()) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'El teléfono es obligatorio' 
+            });
+        }
+        
+        if (!mensaje || !mensaje.trim()) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'El mensaje es obligatorio' 
+            });
+        }
+        
+        // Validar formato de email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'El formato del email no es válido' 
+            });
+        }
+        
+        // Validar que el mensaje tenga al menos 10 caracteres
+        if (mensaje.trim().length < 10) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'El mensaje debe tener al menos 10 caracteres' 
             });
         }
 
