@@ -35,9 +35,9 @@ Para que el formulario funcione, necesitas configurar Gmail:
 Crea un archivo `.env` en la raíz del proyecto:
 
 ```env
-EMAIL_USER=devalliance25@gmail.com
+EMAIL_USER=**************
 EMAIL_PASS=tu_contraseña_de_aplicacion_generada
-PORT=3000
+PORT=*********
 ```
 
 ### 4. Iniciar servidor
