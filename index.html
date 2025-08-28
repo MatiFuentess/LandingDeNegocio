@@ -6,6 +6,7 @@
     <title>Transforma tu Negocio - Soluciones Digitales Innovadoras</title>
     <meta name="description" content="Descubre cómo nuestras soluciones digitales pueden revolucionar tu empresa. Aumenta ventas, optimiza procesos y conecta con tus clientes.">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="header-styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -15,24 +16,39 @@
     <div class="particles-container" id="particles"></div>
 
     <!-- Header -->
-    <header class="header" id="header">
+    <header class="header scrolled" id="header">
         <nav class="nav">
             <div class="nav-logo">
-                <i class="fas fa-rocket"></i>
-                <span>DevAlliance</span>
+                <div class="logo-container">
+                    <i class="fas fa-rocket"></i>
+                    <div class="logo-text">
+                        <span class="logo-main">DevAlliance</span>
+                        <span class="logo-tagline">Innovación Digital</span>
+                    </div>
+                </div>
             </div>
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#testimonios">Testimonios</a></li>
-                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#nosotros">Sobre Nosotros</a></li>
+                <li><a href="#proceso">Cómo Trabajamos</a></li>
+                <li><a href="#portafolio">Portafolio</a></li>
+                <li><a href="#planes">Planes</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#clientes">Clientes</a></li>
             </ul>
+            <div class="nav-actions">
+                <button class="btn btn-header" onclick="scrollToForm()">
+                    <i class="fas fa-rocket"></i>
+                    <span>Empezar</span>
+                </button>
+            </div>
             <div class="nav-toggle" id="nav-toggle">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
         </nav>
+
     </header>
 
     <!-- Hero Section -->
@@ -162,53 +178,43 @@
         </div>
     </section>
 
-    <!-- Social Proof Section -->
-    <section id="testimonios" class="social-proof">
+    <!-- Sobre Nosotros Section -->
+    <section id="nosotros" class="about-us">
         <div class="container">
             <div class="section-header">
-                <h2>Lo que dicen nuestros clientes</h2>
-                <p>Empresas que ya transformaron su negocio con nosotros</p>
+                <h2>Sobre Nosotros</h2>
+                <p>Conoce la historia detrás de DevAlliance</p>
             </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Gracias a TechSolutions, aumentamos nuestras ventas en un 300% en solo 4 meses. El equipo es profesional y los resultados superaron nuestras expectativas."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>María González</h4>
-                            <p>CEO, Innovación Digital S.A.</p>
-                        </div>
-                    </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="about-intro">
+                        En <strong>DevAlliance</strong> creemos que la tecnología es una herramienta poderosa para transformar negocios.
+                    </p>
+                    <p class="about-story">
+                        Nacimos como tres programadores con la idea de unir fuerzas y crear soluciones digitales que realmente ayuden a crecer a emprendedores, profesionales y empresas.
+                    </p>
+                    <p class="about-mission">
+                        Nuestra misión es llevar la innovación al alcance de todos, construyendo páginas web, sistemas y experiencias digitales que generen resultados concretos.
+                    </p>
+                    <p class="about-difference">
+                        Nos diferencia nuestra cercanía: escuchamos a cada cliente, entendemos su visión y la convertimos en un proyecto digital único.
+                    </p>
+                    <p class="about-vision">
+                        Porque en <strong>DevAlliance</strong> no solo desarrollamos software… construimos alianzas para crecer juntos 🚀
+                    </p>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"La implementación fue súper rápida y el soporte técnico es excepcional. Nuestros clientes están más satisfechos que nunca."</p>
+                <div class="about-visual">
+                    <div class="about-icon">
+                        <i class="fas fa-users"></i>
                     </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <h3>3</h3>
+                            <p>Fundadores</p>
                         </div>
-                        <div class="author-info">
-                            <h4>Carlos Rodríguez</h4>
-                            <p>Director de Tecnología, E-commerce Pro</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Invertir en TechSolutions fue la mejor decisión para nuestra empresa. El ROI fue inmediato y los procesos se optimizaron completamente."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Ana Martínez</h4>
-                            <p>Fundadora, StartupTech</p>
+                        <div class="stat-item">
+                            <h3>100%</h3>
+                            <p>Comprometidos</p>
                         </div>
                     </div>
                 </div>
