@@ -1744,6 +1744,75 @@ body {
     }
 }
 
+/* Botón flotante de WhatsApp */
+.whatsapp-float {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 10050;
+}
+
+.whatsapp-float a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: white;
+}
+
+.wa-avatar {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #25D366, #128C7E);
+    box-shadow: 0 10px 25px rgba(18, 140, 126, 0.35), 0 0 0 6px rgba(37, 211, 102, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+}
+
+.wa-avatar::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px dashed rgba(255, 255, 255, 0.25);
+    animation: wa-rotate 6s linear infinite;
+}
+
+@keyframes wa-rotate {
+    to { transform: rotate(360deg); }
+}
+
+.wa-icon {
+    font-size: 1.7rem;
+}
+
+.wa-badge {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0.55rem 0.8rem;
+    border-radius: 14px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    opacity: 0.95;
+}
+
+.whatsapp-float a:hover .wa-avatar {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 14px 30px rgba(18, 140, 126, 0.45), 0 0 0 8px rgba(37, 211, 102, 0.18);
+}
+
+@media (max-width: 768px) {
+    .wa-badge { display: none; }
+    .wa-avatar { width: 56px; height: 56px; }
+}
+
 /* Estilos para las notificaciones */
 .notification {
     position: fixed;
