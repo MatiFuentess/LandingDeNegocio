@@ -833,6 +833,49 @@ class ModernNavigation {
     }
 }
 
+// Sistema de Header Sticky con transformación
+class StickyHeader {
+    constructor() {
+        this.header = document.getElementById('header');
+        this.scrollThreshold = 100; // Píxeles de scroll para activar la transformación
+        this.init();
+    }
+
+    init() {
+        this.handleScroll();
+        this.handleResize();
+    }
+
+    handleScroll() {
+        // Mantener el header siempre en estado compacto
+        this.header.classList.add('scrolled');
+        
+        // Opcional: Si quieres que cambie solo en móviles, descomenta esto:
+        /*
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            
+            if (scrollY > this.scrollThreshold) {
+                this.header.classList.add('scrolled');
+            } else {
+                this.header.classList.remove('scrolled');
+            }
+        });
+        */
+    }
+
+    handleResize() {
+        window.addEventListener('resize', () => {
+            // Ajustar threshold en dispositivos móviles
+            if (window.innerWidth <= 768) {
+                this.scrollThreshold = 50;
+            } else {
+                this.scrollThreshold = 100;
+            }
+        });
+    }
+}
+
 // Inicialización cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
     // Inicializar todos los sistemas
@@ -841,6 +884,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new AnimationObserver();
     new ContactFormHandler();
     new VisualEffects();
+    new StickyHeader();
     
     // Preloader opcional
     const preloader = document.createElement('div');
