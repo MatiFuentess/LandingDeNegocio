@@ -442,7 +442,8 @@ class ContactFormHandler {
         
         try {
             // Enviar datos al servidor
-            const response = await fetch('/api/contact', {
+            const apiUrl = (window.location && window.location.origin) ? `${window.location.origin}/api/contact` : '/api/contact';
+            const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -450,10 +451,23 @@ class ContactFormHandler {
                 body: JSON.stringify(data)
             });
             
-            const result = await response.json();
+            const contentType = response.headers.get('content-type') || '';
+            let result = { success: response.ok, message: '' };
+            
+            // Intentar parsear JSON solo si hay cuerpo y es JSON
+            const rawText = await response.text();
+            if (rawText && contentType.includes('application/json')) {
+                try {
+                    result = JSON.parse(rawText);
+                } catch (_) {
+                    // Mantener result por defecto si el JSON está malformado
+                }
+            } else if (rawText && !contentType.includes('application/json')) {
+                result.message = rawText;
+            }
             
             if (result.success) {
-                this.showNotification(result.message, 'success');
+                this.showNotification(result.message || 'Consulta enviada exitosamente. Te contactaremos pronto.', 'success');
                 this.form.reset();
                 
                 // Efecto de confetti
@@ -462,7 +476,7 @@ class ContactFormHandler {
                 // Log para debugging
                 console.log('✅ Formulario enviado exitosamente:', data);
             } else {
-                throw new Error(result.message || 'Error en el servidor');
+                throw new Error(result.message || `Error del servidor (${response.status})`);
             }
             
         } catch (error) {
