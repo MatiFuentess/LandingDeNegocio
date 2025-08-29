@@ -458,3 +458,167 @@
         display: flex;
     }
 }
+
+/* Responsive adicional para móviles pequeños */
+@media (max-width: 640px) {
+    .header {
+        padding: 0.8rem 0;
+    }
+    
+    .header.scrolled {
+        padding: 0.5rem 0;
+    }
+    
+    .nav {
+        padding: 0 1rem;
+    }
+    
+    .nav-logo {
+        font-size: 1.3rem;
+    }
+    
+    .logo-container {
+        gap: 0.5rem;
+        padding: 0.3rem;
+    }
+    
+    .nav-logo i {
+        font-size: 2rem;
+    }
+    
+    .header.scrolled .nav-logo i {
+        font-size: 1.6rem;
+    }
+    
+    .logo-main {
+        font-size: 1.3rem;
+    }
+    
+    .header.scrolled .logo-main {
+        font-size: 1.1rem;
+    }
+    
+    .logo-tagline {
+        font-size: 0.6rem;
+    }
+    
+    .nav-menu {
+        padding: 1.5rem;
+    }
+    
+    .nav-menu a {
+        padding: 1rem 1.2rem;
+        font-size: 1rem;
+        margin-bottom: 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 0.6rem 0;
+    }
+    
+    .header.scrolled {
+        padding: 0.4rem 0;
+    }
+    
+    .nav {
+        padding: 0 0.8rem;
+    }
+    
+    .nav-logo {
+        font-size: 1.1rem;
+    }
+    
+    .logo-container {
+        gap: 0.4rem;
+        padding: 0.25rem;
+    }
+    
+    .nav-logo i {
+        font-size: 1.8rem;
+    }
+    
+    .header.scrolled .nav-logo i {
+        font-size: 1.4rem;
+    }
+    
+    .logo-main {
+        font-size: 1.1rem;
+    }
+    
+    .header.scrolled .logo-main {
+        font-size: 0.95rem;
+    }
+    
+    .logo-tagline {
+        font-size: 0.55rem;
+    }
+    
+    .nav-menu {
+        padding: 1rem;
+        border-radius: 0 0 20px 20px;
+    }
+    
+    .nav-menu a {
+        padding: 0.8rem 1rem;
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    .header {
+        padding: 0.5rem 0;
+    }
+    
+    .header.scrolled {
+        padding: 0.3rem 0;
+    }
+    
+    .nav {
+        padding: 0 0.6rem;
+    }
+    
+    .nav-logo {
+        font-size: 1rem;
+    }
+    
+    .logo-container {
+        gap: 0.3rem;
+        padding: 0.2rem;
+    }
+    
+    .nav-logo i {
+        font-size: 1.6rem;
+    }
+    
+    .header.scrolled .nav-logo i {
+        font-size: 1.2rem;
+    }
+    
+    .logo-main {
+        font-size: 1rem;
+    }
+    
+    .header.scrolled .logo-main {
+        font-size: 0.9rem;
+    }
+    
+    .logo-tagline {
+        font-size: 0.5rem;
+    }
+    
+    .nav-menu {
+        padding: 0.8rem;
+        border-radius: 0 0 18px 18px;
+    }
+    
+    .nav-menu a {
+        padding: 0.7rem 0.8rem;
+        font-size: 0.9rem;
+        margin-bottom: 0.4rem;
+        border-radius: 14px;
+    }
+}
