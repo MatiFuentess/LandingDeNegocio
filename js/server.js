@@ -151,13 +151,13 @@ app.post('/api/contact', async (req, res) => {
             `
         };
 
-        // Simular envío exitoso (comentado el envío real por ahora)
-        // await transporter.sendMail(mailOptions);
+        // Enviar el correo real
+        await transporter.sendMail(mailOptions);
         
-        // Respuesta de éxito simulada
+        // Respuesta de éxito
         res.json({ 
             success: true, 
-            message: 'Consulta recibida exitosamente. Te contactaremos pronto por email o WhatsApp.' 
+            message: 'Consulta enviada exitosamente. Te contactaremos pronto por email o WhatsApp.' 
         });
         
         // Log para debugging

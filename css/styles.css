@@ -82,7 +82,7 @@ body {
         #0f172a 0%, 
         var(--primary-900) 40%, 
         var(--accent-900) 100%);
-    animation: gentleShift 15s ease-in-out infinite;
+    animation: gentleShift 120s ease-in-out infinite;
 }
 
 @keyframes gentleShift {
@@ -364,6 +364,18 @@ body {
     position: relative;
     animation: morphShape 12s ease-in-out infinite;
     box-shadow: 0 20px 60px rgba(59, 130, 246, 0.15);
+    overflow: hidden; /* evita que la imagen se salga */
+}
+
+/* Aquí controlamos SOLO el logo */
+.hero-logo {
+    width: 60%;   /* ajusta el porcentaje a tu gusto */
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.hero-logo:hover {
+    transform: scale(0.9); /* ejemplo: achicar al pasar el mouse */
 }
 
 @keyframes morphShape {
@@ -1590,6 +1602,8 @@ body {
 .btn-full:hover::before {
     left: 100%;
 }
+
+
 
 /* Social Proof optimizado */
 .social-proof {
