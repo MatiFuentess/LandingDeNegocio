@@ -363,8 +363,8 @@ class ContactFormHandler {
 
     init() {
         if (this.form) {
-            this.handleSubmission();
-            this.handleInputAnimations();
+                                   this.handleSubmission();
+                       this.handleInputAnimations();
         }
     }
 
@@ -481,6 +481,20 @@ class ContactFormHandler {
             
         } catch (error) {
             console.error('❌ Error al enviar formulario:', error);
+            
+            // Mostrar mensaje de error más específico
+            let errorMessage = 'Error al enviar el formulario. ';
+            
+            if (error.message.includes('fetch')) {
+                errorMessage += 'El servidor no está respondiendo. Asegúrate de que esté corriendo.';
+            } else if (error.message.includes('Failed to fetch')) {
+                errorMessage += 'No se puede conectar al servidor. Verifica que esté iniciado.';
+            } else {
+                errorMessage += error.message;
+            }
+            
+            this.showNotification(errorMessage, 'error');
+            
             // Fallback: abrir cliente de correo y ofrecer WhatsApp
             try {
                 const subject = encodeURIComponent(`Consulta de ${data.nombre} - DevAlliance`);
@@ -501,7 +515,7 @@ class ContactFormHandler {
                 const waText = encodeURIComponent(`Hola, soy ${data.nombre}. Email: ${data.email}. Empresa: ${data.empresa}. Tel: ${data.telefono}. Mensaje: ${data.mensaje}`);
                 const waUrl = `https://wa.me/5492612497770?text=${waText}`;
                 
-                this.showNotification('No se pudo contactar al servidor. Abrimos tu correo. También puedes continuar por WhatsApp.', 'warning');
+                this.showNotification('El servidor no está funcionando. Mientras tanto, abrimos tu correo. También puedes continuar por WhatsApp.', 'warning');
                 
                 // Mostrar un botón temporal para WhatsApp
                 const goWa = document.createElement('a');
@@ -520,6 +534,8 @@ class ContactFormHandler {
             submitBtn.disabled = false;
         }
     }
+
+    
 
     handleInputAnimations() {
         const inputs = this.form.querySelectorAll('input, textarea');
