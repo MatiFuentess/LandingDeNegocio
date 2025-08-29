@@ -205,9 +205,18 @@ body {
     font-weight: 700;
     background: linear-gradient(135deg, var(--primary-500) 0%, var(--accent-500) 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     text-decoration: none;
 }
+/* imagen de logo en el header */
+.nav-logo-img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 10px rgba(59, 130, 246, 0.4));
+}
+
 
 .nav-logo i {
     font-size: 2rem;
@@ -343,8 +352,8 @@ body {
 }
 
 .hero-image {
-    width: 320px;
-    height: 320px;
+    width: 420px;
+    height: 420px;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
     display: flex;
@@ -354,6 +363,7 @@ body {
     border: 2px solid rgba(59, 130, 246, 0.2);
     position: relative;
     animation: morphShape 12s ease-in-out infinite;
+    box-shadow: 0 20px 60px rgba(59, 130, 246, 0.15);
 }
 
 @keyframes morphShape {
@@ -375,12 +385,76 @@ body {
     }
 }
 
-.hero-image i {
-    font-size: 6rem;
+.hero-logo {
+    width: 82%;
+    height: auto;
+    object-fit: contain;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    filter: drop-shadow(0 14px 28px rgba(59, 130, 246, 0.35));
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+    animation: logoIn 1s ease forwards 0.1s, floatY 6s ease-in-out infinite 1.1s;
+}
+
+/* fallback icon if image missing */
+.fallback-icon {
+    display: none;
+    font-size: 5rem;
     background: linear-gradient(135deg, var(--primary-500), var(--accent-500), var(--secondary-500));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.4));
+}
+
+.hero-rocket {
+    display: block;
+    font-size: 7rem;
+    background: linear-gradient(135deg, var(--primary-500), var(--accent-500), var(--secondary-500));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.4));
+    animation: floatY 6s ease-in-out infinite;
+}
+
+@keyframes logoIn {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* anillo decorativo brillante */
+.hero-image::after {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(closest-side, rgba(59,130,246,0.25), transparent 60%),
+                conic-gradient(from 0deg, rgba(59,130,246,0.25), rgba(139,92,246,0.25), rgba(34,197,94,0.25), rgba(59,130,246,0.25));
+    mask: radial-gradient(closest-side, transparent calc(100% - 6px), #000 0);
+    animation: spinRing 14s linear infinite;
+}
+
+@keyframes spinRing {
+    to { transform: rotate(360deg); }
+}
+
+/* responsive tweaks */
+@media (max-width: 1024px) {
+    .hero-image { width: 360px; height: 360px; }
+}
+@media (max-width: 768px) {
+    .hero-image { width: 300px; height: 300px; }
+    .hero-logo { width: 86%; }
 }
 
 .hero-stats {
@@ -730,6 +804,63 @@ body {
 @keyframes shimmer {
     0% { transform: translateX(-100%) rotate(45deg); }
     100% { transform: translateX(100%) rotate(45deg); }
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-float {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1000;
+}
+
+.whatsapp-float a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.wa-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #25D366;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.wa-icon {
+    font-size: 28px;
+    color: #ffffff;
+}
+
+.whatsapp-float a:hover .wa-avatar {
+    transform: scale(1.06);
+    box-shadow: 0 12px 32px rgba(37, 211, 102, 0.45);
+}
+
+.wa-badge {
+    background: #ffffff;
+    color: #111827;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-strong);
+}
+
+@media (max-width: 640px) {
+    .wa-badge {
+        display: none;
+    }
+    .wa-avatar {
+        width: 52px;
+        height: 52px;
+    }
 }
 
 /* About Us Section - Mejorado */
