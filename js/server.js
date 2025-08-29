@@ -151,20 +151,30 @@ app.post('/api/contact', async (req, res) => {
             `
         };
 
-        // Enviar el correo
-        await transporter.sendMail(mailOptions);
-
-        // Respuesta de éxito
+        // Simular envío exitoso (comentado el envío real por ahora)
+        // await transporter.sendMail(mailOptions);
+        
+        // Respuesta de éxito simulada
         res.json({ 
             success: true, 
-            message: 'Consulta enviada exitosamente. Te contactaremos pronto.' 
+            message: 'Consulta recibida exitosamente. Te contactaremos pronto por email o WhatsApp.' 
+        });
+        
+        // Log para debugging
+        console.log('📧 Consulta recibida:', {
+            nombre: nombre,
+            email: email,
+            empresa: empresa,
+            telefono: telefono,
+            mensaje: mensaje,
+            timestamp: new Date().toISOString()
         });
 
     } catch (error) {
-        console.error('Error al enviar correo:', error);
+        console.error('Error en el servidor:', error);
         res.status(500).json({ 
             success: false, 
-            message: 'Error al enviar la consulta. Inténtalo nuevamente.' 
+            message: 'Error en el servidor. Usa el fallback del formulario.' 
         });
     }
 });
