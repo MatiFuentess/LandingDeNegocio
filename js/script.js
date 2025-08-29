@@ -481,10 +481,40 @@ class ContactFormHandler {
             
         } catch (error) {
             console.error('❌ Error al enviar formulario:', error);
-            this.showNotification(
-                error.message || 'Error al enviar la consulta. Inténtalo nuevamente.', 
-                'error'
-            );
+            // Fallback: abrir cliente de correo y ofrecer WhatsApp
+            try {
+                const subject = encodeURIComponent(`Consulta de ${data.nombre} - DevAlliance`);
+                const lines = [
+                    `Nombre: ${data.nombre}`,
+                    `Email: ${data.email}`,
+                    `Empresa: ${data.empresa}`,
+                    `Teléfono: ${data.telefono}`,
+                    '',
+                    'Mensaje:',
+                    data.mensaje
+                ];
+                const body = encodeURIComponent(lines.join('\n'));
+                const mailto = `mailto:devalliance25@gmail.com?subject=${subject}&body=${body}`;
+                window.location.href = mailto;
+                
+                // También preparar enlace a WhatsApp
+                const waText = encodeURIComponent(`Hola, soy ${data.nombre}. Email: ${data.email}. Empresa: ${data.empresa}. Tel: ${data.telefono}. Mensaje: ${data.mensaje}`);
+                const waUrl = `https://wa.me/5492612497770?text=${waText}`;
+                
+                this.showNotification('No se pudo contactar al servidor. Abrimos tu correo. También puedes continuar por WhatsApp.', 'warning');
+                
+                // Mostrar un botón temporal para WhatsApp
+                const goWa = document.createElement('a');
+                goWa.href = waUrl;
+                goWa.target = '_blank';
+                goWa.rel = 'noopener';
+                goWa.textContent = 'Abrir WhatsApp';
+                goWa.style.cssText = 'display:inline-block;margin-left:8px;color:#fff;text-decoration:underline;';
+                const lastNotif = document.querySelector('.notification.notification-warning .notification-content');
+                if (lastNotif) lastNotif.appendChild(goWa);
+            } catch (_) {
+                this.showNotification('Error al preparar el envío alternativo. Inténtalo nuevamente.', 'error');
+            }
         } finally {
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
