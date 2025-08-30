@@ -296,7 +296,7 @@ body {
 /* Hero optimizado */
 .hero {
     padding: 140px 0 100px;
-    min-height: 100vh;
+    min-height: 100svh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -593,18 +593,26 @@ body {
                 conic-gradient(from 0deg, rgba(59,130,246,0.25), rgba(139,92,246,0.25), rgba(34,197,94,0.25), rgba(59,130,246,0.25));
     mask: radial-gradient(closest-side, transparent calc(100% - 6px), #000 0);
     animation: spinRing 14s linear infinite;
+    /* Mejorar estabilidad en móviles */
+    will-change: transform;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
     
     /* Responsive para el anillo decorativo */
     @media (max-width: 640px) {
         inset: 8px;
+        /* Reducir velocidad de rotación en móviles para mayor estabilidad */
+        animation: spinRing 20s linear infinite;
     }
     
     @media (max-width: 480px) {
         inset: 6px;
+        animation: spinRing 25s linear infinite;
     }
     
     @media (max-width: 360px) {
         inset: 4px;
+        animation: spinRing 30s linear infinite;
     }
 }
 
@@ -675,6 +683,16 @@ body {
     .hero-image { 
         width: 300px; 
         height: 300px; 
+        margin: 0 auto;
+        /* Mejorar estabilidad en móviles */
+        transform: none !important;
+        will-change: auto;
+    }
+    
+    .hero-visual {
+        /* Asegurar que el contenedor visual no se mueva */
+        transform: none !important;
+        will-change: auto;
     }
     
     .hero-logo { 

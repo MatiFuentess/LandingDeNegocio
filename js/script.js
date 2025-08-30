@@ -115,13 +115,32 @@ class VisualEffects {
     initParallax() {
         const parallaxElements = document.querySelectorAll('.hero-image, .hero-visual');
         
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.3;
-            
-            parallaxElements.forEach(element => {
-                element.style.transform = `translateY(${rate}px)`;
+        // Solo aplicar parallax en pantallas grandes (desktop)
+        if (window.innerWidth > 768) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.3;
+                
+                parallaxElements.forEach(element => {
+                    element.style.transform = `translateY(${rate}px)`;
+                });
             });
+        }
+        
+        // En móviles, mantener los elementos estáticos
+        if (window.innerWidth <= 768) {
+            parallaxElements.forEach(element => {
+                element.style.transform = 'none';
+            });
+        }
+        
+        // Manejar cambios de tamaño de ventana
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 768) {
+                parallaxElements.forEach(element => {
+                    element.style.transform = 'none';
+                });
+            }
         });
     }
 
